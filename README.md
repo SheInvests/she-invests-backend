@@ -1,1 +1,0 @@
-# she-invests-backend
