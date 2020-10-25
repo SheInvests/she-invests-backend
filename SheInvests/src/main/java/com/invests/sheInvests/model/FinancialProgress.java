@@ -1,26 +1,59 @@
 package com.invests.sheInvests.model;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name="financial_progress")
+@EntityListeners(AuditingEntityListener.class)
 public class FinancialProgress {
 
-  private static int progressId = 0;
-  private final int financialGoalId;
-  private final double amountChanged;
-  private final LocalDateTime createdAt;
+  @Id
+  @Column(name="progressid")
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private int progressId;
 
-  public FinancialProgress(int financialGoalId,double amountChanged, LocalDateTime createdAt) {
-    this.financialGoalId = financialGoalId;
-    this.amountChanged = amountChanged;
-    this.createdAt = createdAt;
-    progressId += 1;
+  @ManyToOne
+  @JoinColumn(name = "goalid")
+  private FinancialGoal financialGoal;
+
+  @Column(name="amountchanged")
+  private double amountChanged;
+
+  @Column(name="createdat")
+  private LocalDateTime createdAt;
+
+  public int getProgressId() {
+    return progressId;
+  }
+
+  public void setProgressId(int progressId) {
+    this.progressId = progressId;
   }
 
   public double getAmountChanged() {
     return amountChanged;
   }
 
+  public void setAmountChanged(double amountChanged) {
+    this.amountChanged = amountChanged;
+  }
+
   public LocalDateTime getCreatedAt() {
     return createdAt;
+  }
+
+  public void setCreatedAt(LocalDateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public FinancialGoal getFinancialGoal() {
+    return financialGoal;
+  }
+
+  public void setFinancialGoal(FinancialGoal financialGoal) {
+    this.financialGoal = financialGoal;
   }
 }

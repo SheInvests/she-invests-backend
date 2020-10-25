@@ -9,7 +9,7 @@ import com.invests.sheInvests.model.FinancialProgress;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FinancialGoal {
+public class FinancialGoalDTO {
   @SerializedName("name")
   @Expose
   private String name;
