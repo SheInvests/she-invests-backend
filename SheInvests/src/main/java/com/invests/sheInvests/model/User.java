@@ -1,33 +1,36 @@
 package com.invests.sheInvests.model;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.time.LocalDateTime;
 
+@Entity
 public class User {
 
-  private static int userId = 0;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private static int userId;
+  @Column(name="email")
   private final String email;
+  @Column(name="firstname")
   private final String firstName;
+  @Column(name="lastname")
   private final String lastName;
-  private FinancialGoal financialGoal;
+  @Column(name="role")
   private Roles role;
-
 
   public User(String firstName, String lastName,String email, Roles role) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    financialGoal = null;
     this.role = role;
-    userId += 1;
+//    userId += 1;
   }
 
-  public User(String firstName, String lastName, String email,Roles role, LocalDateTime endDate, String financialGoalName,
-              double targetAmount, String frequency) {
+  public User(String firstName, String lastName, String email,Roles role) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
-    LocalDateTime currentDate = LocalDateTime.now();
-    financialGoal = new FinancialGoal(financialGoalName,currentDate,endDate,0,targetAmount,frequency,userId);
     this.role = role;
   }
 
@@ -37,10 +40,6 @@ public class User {
 
   public String getLastName() {
     return lastName;
-  }
-
-  public FinancialGoal getFinancialGoal() {
-    return financialGoal;
   }
 
   public Roles getRole() {
