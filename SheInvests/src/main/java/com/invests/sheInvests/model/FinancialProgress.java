@@ -1,10 +1,10 @@
-package model;
+package com.invests.sheInvests.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class FinancialProgress {
 
+  private static int progressId = 0;
   private final int financialGoalId;
   private final double amountChanged;
   private final LocalDateTime createdAt;
@@ -13,6 +13,7 @@ public class FinancialProgress {
     this.financialGoalId = financialGoalId;
     this.amountChanged = amountChanged;
     this.createdAt = createdAt;
+    progressId += 1;
   }
 
   public double getAmountChanged() {

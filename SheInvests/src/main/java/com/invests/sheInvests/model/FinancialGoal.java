@@ -1,8 +1,9 @@
-package model;
+package com.invests.sheInvests.model;
+
+import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class FinancialGoal {
@@ -26,6 +27,7 @@ public class FinancialGoal {
     this.endDate = endDate;
     this.amountSaved = amountSaved;
     this.userID = userId;
+    this.targetAmount = targetAmount;
     this.progressList = new ArrayList<>();
     this.goalID += 1;
   }
@@ -56,7 +58,7 @@ public class FinancialGoal {
 
   public boolean addProgress(double amountChanged) {
     try{
-      LocalDateTime currentDate = java.time.LocalDateTime.now();
+      LocalDateTime currentDate = LocalDateTime.now();
       FinancialProgress financialProgress = new FinancialProgress(goalID,amountChanged,currentDate);
       progressList.add(financialProgress);
 

@@ -1,4 +1,4 @@
-package model;
+package com.invests.sheInvests.model;
 
 public enum Roles {
   Student,
