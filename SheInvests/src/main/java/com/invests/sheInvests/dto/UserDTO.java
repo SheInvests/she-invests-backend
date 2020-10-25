@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.invests.sheInvests.model.Roles;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class User {
+public class UserDTO {
 
   @SerializedName("firstName")
   @Expose
@@ -23,7 +23,7 @@ public class User {
 
   @SerializedName("financialGoal")
   @Expose
-  private FinancialGoal financialGoal;
+  private FinancialGoalDTO financialGoal;
 
   @SerializedName("role")
   @Expose
@@ -53,11 +53,11 @@ public class User {
     this.email = email;
   }
 
-  public FinancialGoal getFinancialGoal() {
+  public FinancialGoalDTO getFinancialGoal() {
     return financialGoal;
   }
 
-  public void setFinancialGoal(FinancialGoal financialGoal) {
+  public void setFinancialGoal(FinancialGoalDTO financialGoal) {
     this.financialGoal = financialGoal;
   }
 

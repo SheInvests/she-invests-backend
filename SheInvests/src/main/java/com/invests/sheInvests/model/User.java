@@ -1,38 +1,43 @@
 package com.invests.sheInvests.model;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import java.time.LocalDateTime;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="user")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
   @Id
+  @Column(name="userid")
   @GeneratedValue(strategy = GenerationType.AUTO)
-  private static int userId;
+  private int userId;
+
   @Column(name="email")
-  private final String email;
+  private String email;
+
   @Column(name="firstname")
-  private final String firstName;
+  private String firstName;
+
   @Column(name="lastname")
-  private final String lastName;
+  private String lastName;
+
   @Column(name="role")
   private Roles role;
 
-  public User(String firstName, String lastName,String email, Roles role) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.role = role;
-//    userId += 1;
-  }
-
-  public User(String firstName, String lastName, String email,Roles role) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.role = role;
-  }
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "goalid", referencedColumnName = "goalid")
+  private FinancialGoal financialGoal;
 
   public String getFirstName() {
     return firstName;
@@ -49,4 +54,38 @@ public class User {
   public String getEmail() {
     return email;
   }
+
+  public int getUserId() {
+    return userId;
+  }
+
+  public void setUserId(int userId) {
+    this.userId = userId;
+  }
+
+  public void setRole(Roles role) {
+    this.role = role;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public FinancialGoal getFinancialGoal() {
+    return financialGoal;
+  }
+
+  public void setFinancialGoal(FinancialGoal financialGoal) {
+    this.financialGoal = financialGoal;
+  }
+
+
 }
