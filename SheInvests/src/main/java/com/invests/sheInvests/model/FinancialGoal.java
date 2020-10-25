@@ -5,19 +5,34 @@ import org.springframework.context.annotation.Bean;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
+@Entity
+@Table(name="financial_goal")
 public class FinancialGoal {
 
-  private static int goalID = 0;
-  private final String name;
-  private final String frequency;
-  private final LocalDateTime startDate;
-  private final LocalDateTime endDate;
-  private double amountSaved;
-  private double targetAmount;
-  private final int userID;
-  private List<FinancialProgress> progressList;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private static int goalID;
 
+  @Column(name="name")
+  private final String name;
+  @Column(name="frequency")
+  private final String frequency;
+  @Column(name="startdate")
+  private final LocalDateTime startDate;
+  @Column(name="enddate")
+  private final LocalDateTime endDate;
+  @Column(name="amount_saved")
+  private double amountSaved;
+  @Column(name="amount_target")
+  private double targetAmount;
+  @OneToOne
+  @JoinColumn(name="userid")
+  private final int userID;
 
   public FinancialGoal(String financialGoalName, LocalDateTime startDate, LocalDateTime endDate, double amountSaved,
                        double targetAmount, String frequency, int userId) {
@@ -28,8 +43,6 @@ public class FinancialGoal {
     this.amountSaved = amountSaved;
     this.userID = userId;
     this.targetAmount = targetAmount;
-    this.progressList = new ArrayList<>();
-    this.goalID += 1;
   }
 
   public String getName() {
@@ -60,7 +73,6 @@ public class FinancialGoal {
     try{
       LocalDateTime currentDate = LocalDateTime.now();
       FinancialProgress financialProgress = new FinancialProgress(goalID,amountChanged,currentDate);
-      progressList.add(financialProgress);
 
       amountSaved += amountChanged;
     }
